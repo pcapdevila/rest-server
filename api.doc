@@ -1,0 +1,47 @@
+API spec: 
+
+Start service instance 
+=========================
+
+- GET /instance/start
+
+Example:
+
+curl -X GET http://localhost:5000/instance/start
+{"backoffFactor": 1.15, "backoffSeconds": 1, "cmd": "while true; do sleep 33 ; done", "container": {"docker": {"forcePullImage": false, "image": "python:3", "privileged": false}, "type": "DOCKER"}, "cpus": 0.1, "deployments": [{"id": "81454a26-9758-4e7e-9def-d0ab5ae78d50"}], "disk": 0, "gpus": 0, "id": "/sleepy", "instances": 1, "killSelection": "YOUNGEST_FIRST", "maxLaunchDelaySeconds": 3600, "mem": 32, "networks": [{"mode": "host"}], "portDefinitions": [{"name": "default", "port": 0, "protocol": "tcp"}], "requirePorts": false, "tasksHealthy": 0, "tasksRunning": 0, "tasksStaged": 0, "tasksUnhealthy": 0, "unreachableStrategy": {"expungeAfterSeconds": 0, "inactiveAfterSeconds": 0}, "upgradeStrategy": {"maximumOverCapacity": 1, "minimumHealthCapacity": 1}, "version": "2018-02-23T15:41:59.434Z"}
+
+
+Stop service instance
+=========================
+
+- GET /instance/stop
+
+Example: 
+
+pcapdevila@VM:~$ curl -X GET http://localhost:5000/instance/stop
+{"version": "2018-02-23T15:40:06.248Z", "deploymentId": "68d93a5c-8d48-4d87-bf97-a4efa032ad31"}
+
+Get service instance
+=========================
+
+- GET /instance/get/<instance_id>
+
+Example:
+
+curl -X GET http://localhost:5000/instance/get/sleepy.b1bd0ba3-18af-11e8-9228-0242ac107905
+{"appId": "/sleepy", "host": "localhost", "id": "sleepy.b1bd0ba3-18af-11e8-9228-0242ac107905", "ipAddresses": [{"ipAddress": "172.16.121.4", "protocol": "IPv4"}], "ports": [11349], "slaveId": "ed452ec6-b87d-47c7-9043-063bf174037e-S0", "stagedAt": "2018-02-23T15:39:11.947000Z", "startedAt": "2018-02-23T15:39:13.567000Z", "state": "TASK_RUNNING", "version": "2018-02-23T15:38:59.432Z"}
+
+
+List service instances
+=========================
+
+- GET /instance/stop
+
+Example: 
+
+curl -X GET http://localhost:5000/instance/list
+[{"appId": "/sleepy", "host": "localhost", "id": "sleepy.b1bd0ba3-18af-11e8-9228-0242ac107905", "ipAddresses": [{"ipAddress": "172.16.121.4", "protocol": "IPv4"}], "ports": [11349], "slaveId": "ed452ec6-b87d-47c7-9043-063bf174037e-S0", "stagedAt": "2018-02-23T15:39:11.947000Z", "startedAt": "2018-02-23T15:39:13.567000Z", "state": "TASK_RUNNING", "version": "2018-02-23T15:38:59.432Z"},{"appId": "/sleepy", "host": "localhost", "id": "sleepy.be0804a4-18af-11e8-9228-0242ac107905", "ipAddresses": [{"ipAddress": "172.16.121.4", "protocol": "IPv4"}], "ports": [11571], "slaveId": "ed452ec6-b87d-47c7-9043-063bf174037e-S0", "stagedAt": "2018-02-23T15:39:32.135000Z", "startedAt": "2018-02-23T15:39:33.258000Z", "state": "TASK_RUNNING", "version": "2018-02-23T15:39:32.054Z"}]
+
+
+
+
